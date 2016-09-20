@@ -12,5 +12,5 @@ Launch the Mysql deployment:
 `kubectl create -f mysql-deployment`
 
 Launch the Threadfix deployment:
-`threadfix-deployment.yaml`
+`kubectl create -f threadfix-deployment.yaml`
 

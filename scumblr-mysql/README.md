@@ -12,4 +12,4 @@ Launch the Mysql deployment:
 `kubectl create -f scumblr-deployment`
 
 Launch the Threadfix deployment:
-`scumblr-deployment.yaml`
+`kubectl create -f scumblr-deployment.yaml`
