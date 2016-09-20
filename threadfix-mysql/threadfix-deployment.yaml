@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: threadfix
+ labels:
+   app: threadfix
+spec:
+ ports:
+ - name: threadfix-web
+   port: 443
+   protocol: TCP
+   targetPort: 8443
+ selector:
+   app: threadfix
+   tier: frontend
+ type: LoadBalancer
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: threadfix-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: threadfix
+        tier: frontend
+    spec:
+      containers:
+      - name: threadfix
+        image: us.gcr.io/unshorten-1306/threadfix-docker-mysql:latest
+        env:
+        # Only use create on first deploy, it *will* destroy your database
+        # Change to `update` to persist data
+        - name: MYSQL_STATE
+          value: create
+        - name: MYSQL_DB_URL
+          value: threadfix-mysql
+        - name: MYSQL_USERNAME
+          value: root
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: threadfix-secrets
+              key: threadfix-db-pass
+        ports:
+        - containerPort: 8443

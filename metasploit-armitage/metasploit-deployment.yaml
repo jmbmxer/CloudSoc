@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: metasploit
+ labels:
+   app: metasploit
+spec:
+ ports: 
+ - name: armitage-ssl
+   port: 55553
+   protocol: TCP
+   targetPort: 55553
+ selector:
+   app: metasploit
+   tier: frontend
+ type: LoadBalancer
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: metasploit-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: metasploit
+        tier: frontend
+    spec:
+      containers:
+      - name: metasploit
+        image: us.gcr.io/unshorten-1306/armitage
+        env:
+        - name: DB_PORT_5432_TCP_ADDR
+          value: db
+        ports:
+        - containerPort: 55553
