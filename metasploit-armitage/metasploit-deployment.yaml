@@ -30,8 +30,5 @@ spec:
       containers:
       - name: metasploit
         image: us.gcr.io/unshorten-1306/armitage
-        env:
-        - name: DB_PORT_5432_TCP_ADDR
-          value: db
         ports:
         - containerPort: 55553
