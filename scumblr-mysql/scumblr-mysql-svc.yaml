@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: scumblr-mysql
+  labels:
+    app: scumblr
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: scumblr
+    tier: mysql

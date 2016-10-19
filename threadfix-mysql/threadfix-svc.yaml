@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: threadfix
+ labels:
+   app: threadfix
+spec:
+ ports:
+ - name: threadfix-web
+   port: 443
+   protocol: TCP
+   targetPort: 8443
+ selector:
+   app: threadfix
+   tier: frontend
+ type: LoadBalancer

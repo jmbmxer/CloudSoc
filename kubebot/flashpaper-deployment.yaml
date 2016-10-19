@@ -1,17 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: webgoat-deployment
+  name: flashpaper-deployment
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: webgoat
         tier: frontend
     spec:
       containers:
-      - name: webgoat
-        image: mrmendes/webgoat-docker
+      - name: flashpaper
+        image: jmbmxer/flashpaper
+        imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 8443

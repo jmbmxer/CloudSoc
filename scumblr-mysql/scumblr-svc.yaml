@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: scumblr
+ labels:
+   app: scumblr
+spec:
+ ports:
+ - name: scumblr-web
+   port: 8080
+   protocol: TCP
+   targetPort: 8080
+ - name: scumblr-https
+   port: 443
+   protocol: TCP
+   targetPort: 443
+ selector:
+   app: scumblr
+   tier: frontend
+ type: LoadBalancer
